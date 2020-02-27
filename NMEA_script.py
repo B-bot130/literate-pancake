@@ -50,8 +50,7 @@ def do_the_thing():
                             print('warming up'+ str(i))
                             ser.readline()
                         # try to parse (will throw an exception if input is not valid NMEA)
-                        msg = pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
-                        print(msg)
+                        pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
 
                         # log data
                         outfname = logfilename()
@@ -61,8 +60,9 @@ def do_the_thing():
                             # KeyboardInterrupt
                             while True:
                                 line = ser.readline()
-                                print(line.decode('ascii', errors='replace').strip())
-                                f.write(line)
+                                msg = pynmea2.parse(line.decode('ascii', errors='replace'))
+                                print(msg)
+                                f.write(msg)
 
                 except Exception as e:
                     sys.stderr.write('Error reading serial port %s: %s\n' % (type(e).__name__, e))
