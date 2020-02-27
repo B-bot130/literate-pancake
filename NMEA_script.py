@@ -50,7 +50,8 @@ def do_the_thing():
                             print('warming up'+ str(i))
                             ser.readline()
                         # try to parse (will throw an exception if input is not valid NMEA)
-                        pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
+                        msg = pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
+                        print(msg)
 
                         # log data
                         outfname = logfilename()
