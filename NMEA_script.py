@@ -47,6 +47,7 @@ def do_the_thing():
                     with serial.Serial(port, 4800, timeout=1) as ser:
                         # 'warm up' with reading some input
                         for i in range(10):
+                            print('warming up'+ str(i))
                             ser.readline()
                         # try to parse (will throw an exception if input is not valid NMEA)
                         pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
