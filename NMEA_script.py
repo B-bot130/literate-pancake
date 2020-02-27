@@ -51,6 +51,7 @@ def do_the_thing():
                             ser.readline()
                         # try to parse (will throw an exception if input is not valid NMEA)
                         pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
+                        print('pynmea2 parsed')
 
                         # log data
                         outfname = logfilename()
@@ -59,7 +60,9 @@ def do_the_thing():
                             # loop will exit with Ctrl-C, which raises a
                             # KeyboardInterrupt
                             while True:
+                                print('pre readline')
                                 line = ser.readline()
+                                print('pre parse')
                                 msg = pynmea2.parse(line.decode('ascii', errors='replace'))
                                 print(msg)
                                 f.write(msg)
