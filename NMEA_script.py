@@ -54,7 +54,7 @@ def do_the_thing():
                         # log data
                         outfname = logfilename()
                         sys.stderr.write('Logging data on %s to %s\n' % (port, outfname))
-                        with open(outfname, 'wb') as f:
+                        with open(outfname, 'w') as f:
                             # loop will exit with Ctrl-C, which raises a
                             # KeyboardInterrupt
                             while True:
@@ -62,8 +62,10 @@ def do_the_thing():
                                 msg = pynmea2.parse(line.decode('ascii', errors='replace'))
                                 print(msg)
                                 if msg.sentence_type == 'GSV':
-
-                                    f.write(msg)
+                                    msg_dict = msg.name_to_idx
+                                    for key in msg_dict:
+                                        value = msg_dict.data[msg_dict[key]]
+                                        f.write(key+','+value)
                                     print('written')
 
                 except Exception as e:
