@@ -61,7 +61,7 @@ def do_the_thing():
                                 line = ser.readline()
                                 msg = pynmea2.parse(line.decode('ascii', errors='replace'))
                                 print(msg)
-                                if msg.sentence_type is 'GSV':
+                                if msg.sentence_type == 'GSV':
 
                                     f.write(msg)
                                     print('written')
