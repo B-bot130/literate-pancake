@@ -47,11 +47,9 @@ def do_the_thing():
                     with serial.Serial(port, 4800, timeout=1) as ser:
                         # 'warm up' with reading some input
                         for i in range(10):
-                            print('warming up'+ str(i))
                             ser.readline()
                         # try to parse (will throw an exception if input is not valid NMEA)
                         pynmea2.parse(ser.readline().decode('ascii', errors='replace'))
-                        print('pynmea2 parsed')
 
                         # log data
                         outfname = logfilename()
@@ -60,12 +58,10 @@ def do_the_thing():
                             # loop will exit with Ctrl-C, which raises a
                             # KeyboardInterrupt
                             while True:
-                                print('pre readline')
                                 line = ser.readline()
-                                print('pre parse')
                                 msg = pynmea2.parse(line.decode('ascii', errors='replace'))
-                                print(msg)
-                                f.write(msg)
+                                if msg.sentence_type is 'GSV':
+                                    f.write(msg)
 
                 except Exception as e:
                     sys.stderr.write('Error reading serial port %s: %s\n' % (type(e).__name__, e))
