@@ -64,7 +64,7 @@ def do_the_thing():
                                 if msg.sentence_type == 'GSV':
                                     msg_dict = msg.name_to_idx
                                     for key in msg_dict:
-                                        value = msg_dict.data[msg_dict[key]]
+                                        value = msg.data[msg_dict[key]]
                                         f.write(key+','+value)
                                     print('written')
 
