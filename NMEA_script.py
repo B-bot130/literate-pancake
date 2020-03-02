@@ -60,8 +60,11 @@ def do_the_thing():
                             while True:
                                 line = ser.readline()
                                 msg = pynmea2.parse(line.decode('ascii', errors='replace'))
+                                print(msg)
                                 if msg.sentence_type is 'GSV':
+
                                     f.write(msg)
+                                    print('written')
 
                 except Exception as e:
                     sys.stderr.write('Error reading serial port %s: %s\n' % (type(e).__name__, e))
