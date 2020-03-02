@@ -63,9 +63,11 @@ def do_the_thing():
                                 print(msg)
                                 if msg.sentence_type == 'GSV':
                                     msg_dict = msg.name_to_idx
-                                    for key in msg_dict:
+                                    for i, key in enumerate(msg_dict):
+                                        if i == len(msg.data):
+                                            break
                                         value = msg.data[msg_dict[key]]
-                                        f.write(key+','+value)
+                                        f.write(key+','+value+'\n')
                                     print('written')
 
                 except Exception as e:
